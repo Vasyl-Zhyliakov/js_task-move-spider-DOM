@@ -11,26 +11,26 @@ const differenceWidth =
 const differenceHeight =
   (document.querySelector('body').clientHeight - parentBlock.clientHeight) / 2;
 
-// console.log('differ:', differenceWidth, differenceHeight);
-
-function getParam(param) {
+function getParam(param, max) {
   if (param < 0) {
     return 0;
+  }
+
+  if (param > max) {
+    return max;
   }
 
   return param;
 }
 
-parent.addEventListener('click', (e) => {
-  // console.log('client:', e.clientX, e.clientY);
-
+parentBlock.addEventListener('click', (e) => {
   width =
     e.clientX - differenceWidth - spider.getBoundingClientRect().width / 2;
 
   height =
     e.clientY - differenceHeight - spider.getBoundingClientRect().height / 2;
 
-  // console.log('params:', width, height);
-  // console.log('get params:', getParam(width), getParam(height));
-  spider.style.cssText = `position: absolute; top: ${getParam(height)}px; left: ${getParam(width)}px`;
+  spider.style.cssText = `position: absolute; 
+    top: ${getParam(height, parentBlock.clientHeight - spider.clientHeight)}px; 
+    left: ${getParam(width, parentBlock.clientWidth - spider.clientWidth)}px`;
 });
